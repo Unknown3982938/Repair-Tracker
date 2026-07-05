@@ -3,17 +3,6 @@ const SHEET_GID = "0";
 
 const URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}`;
 
-function formatValue(v) {
-    if (!v) return "-";
-
-    // Google Sheets date object
-    if (typeof v === "object") {
-        return v.f || v.v || "-";
-    }
-
-    return v;
-}
-
 let rows = [];
 
 function clean(v) {
