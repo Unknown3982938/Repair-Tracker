@@ -3,6 +3,17 @@ const SHEET_GID = "0";
 
 const URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${SHEET_GID}`;
 
+function formatValue(v) {
+    if (!v) return "-";
+
+    // Google Sheets date object
+    if (typeof v === "object") {
+        return v.f || v.v || "-";
+    }
+
+    return v;
+}
+
 let rows = [];
 
 function clean(v) {
@@ -50,16 +61,18 @@ function searchJob() {
     const c = result.c;
 
     const data = {
-        jobId: clean(c[0]?.v),
-        unitType: clean(c[2]?.v),
-        unitModel: clean(c[3]?.v),
-        issue: clean(c[4]?.v),
-        resolution: clean(c[5]?.v),
-        dateReceived: clean(c[6]?.v),
-        status: normalizeStatus(clean(c[7]?.v)),
-        asOf: clean(c[8]?.v),
-        retrieved: clean(c[9]?.v)
-    };
+    jobId: clean(c[0]?.v),
+    customer: clean(c[1]?.v),
+    unitType: clean(c[2]?.v),
+    unitModel: clean(c[3]?.v),
+    issue: clean(c[4]?.v),
+    resolution: clean(c[5]?.v),
+    dateReceived: clean(c[6]?.v),
+
+    status: normalizeStatus(clean(c[14]?.v)),
+    asOf: clean(c[15]?.v),
+    retrieved: clean(c[16]?.v)
+};
 
     output.innerHTML = `
         <div class="card">
