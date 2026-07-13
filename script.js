@@ -31,6 +31,8 @@ async function loadData() {
     const json = JSON.parse(text.substring(47).slice(0, -2));
 
     rows = json.table.rows;
+    console.log(rows[0].c[6].v);
+    console.log(typeof rows[0].c[6].v);
 }
 
 function normalizeStatus(status) {
